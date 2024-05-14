@@ -1,5 +1,8 @@
 package blog.jdbc;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,9 +11,6 @@ import java.util.Properties;
 public class JdbcConnection {
 
     Properties properties = new Properties();
-    private final String url = properties.getProperty("url");
-    private final String username = properties.getProperty("username");
-    private final String password = properties.getProperty("password");
 
     public Connection getConnection() {
         return JdbcDBConnection();
@@ -18,10 +18,11 @@ public class JdbcConnection {
 
     private Connection JdbcDBConnection() {
 
-        try {
-            return DriverManager.getConnection(url, username, password);
+        try (InputStream input = new FileInputStream("src/main/resources/config.properties")) {
+            properties.load(input);
+            return DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("username"), properties.getProperty("password"));
 
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
     }

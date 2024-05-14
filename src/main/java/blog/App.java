@@ -1,5 +1,7 @@
 package blog;
 
+import blog.controller.PostController;
+import blog.util.PostRoutes;
 import io.javalin.Javalin;
 public class App {
 
@@ -9,7 +11,10 @@ public class App {
                 })
                 .start(7070);
 
-        app.get("/hello", ctx -> ctx.result("Hello"));
-        app.get("/bye", ctx -> ctx.result("Bye"));
+        app.get(PostRoutes.postsPath(), PostController::showPosts);
+        app.get(PostRoutes.postPath("{id}"), PostController::showPost);
+        app.post(PostRoutes.postCreatePath(), PostController::createPost);
+        app.put(PostRoutes.postUpdatePath(), PostController::updatePost);
+        app.delete(PostRoutes.postDeletePath(), PostController::deletePost);
     }
 }

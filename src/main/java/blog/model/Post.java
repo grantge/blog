@@ -1,5 +1,6 @@
 package blog.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Post {
@@ -8,7 +9,7 @@ public class Post {
     private String id;
     private String title;
     private String content;
-    private Date date;
+    private Timestamp date;
 
     // Геттеры и сеттеры
     public String getId() {
@@ -39,12 +40,18 @@ public class Post {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
     // Конструктор класса
-    public Post(String id, String title, String content, Date date) {
+
+
+    public Post() {
+
+    }
+
+    public Post(String id, String title, String content, Timestamp date) {
         this.id = id;
         this.title = title;
         this.content = content;
