@@ -1,14 +1,11 @@
 package blog.controller;
 
-import blog.dto.CreatePostDTO;
-import blog.dto.DeletePostDTO;
-import blog.dto.UpdatePostDTO;
+import blog.dto.PostDTO;
 import blog.model.Post;
 import blog.repository.PostRepository;
 import com.google.gson.Gson;
 import io.javalin.http.Context;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class PostController {
@@ -39,7 +36,7 @@ public class PostController {
     public static void createPost(Context ctx) {
         String reqBody = ctx.body();
         Gson gson = new Gson();
-        CreatePostDTO createPost = gson.fromJson(reqBody, CreatePostDTO.class);
+        PostDTO createPost = gson.fromJson(reqBody, PostDTO.class);
 
         Post post = postQuery.createPost(createPost);
         String resp = gson.toJson(post);
@@ -57,7 +54,7 @@ public class PostController {
 
         String reqBody = ctx.body();
         Gson gson = new Gson();
-        UpdatePostDTO updatePost = gson.fromJson(reqBody, UpdatePostDTO.class);
+        PostDTO updatePost = gson.fromJson(reqBody, PostDTO.class);
         updatePost.setId(Integer.parseInt(reqId));
 
         Post post = postQuery.updatePost(updatePost);
@@ -74,7 +71,7 @@ public class PostController {
         if (reqId == null) {
             return;
         }
-        DeletePostDTO deletePost = new DeletePostDTO();
+        PostDTO deletePost = new PostDTO();
         deletePost.setId(Integer.parseInt(reqId));
 
         postQuery.deletePosts(deletePost);

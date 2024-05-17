@@ -1,16 +1,25 @@
 package blog.dto;
 
-public class CreatePostDTO {
+public class PostDTO {
 
+    private int id;
     private String title;
     private String content;
 
-    public CreatePostDTO(String title, String content) {
+    public PostDTO(String title, String content) {
         this.title = title;
         this.content = content;
     }
 
-    public CreatePostDTO() {
+    public PostDTO() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
