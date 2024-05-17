@@ -1,8 +1,6 @@
 package blog.repository;
 
-import blog.dto.CreatePostDTO;
-import blog.dto.DeletePostDTO;
-import blog.dto.UpdatePostDTO;
+import blog.dto.PostDTO;
 import blog.jdbc.JdbcConnection;
 import blog.model.Post;
 
@@ -11,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PostRepository {
-    Connection connection = new JdbcConnection().getConnection();
+    Connection connection = JdbcConnection.getConnection();
 
     // Получение всех постов
     public List<Post> getPosts() {
@@ -57,7 +55,7 @@ public class PostRepository {
     }
 
     // Создание поста
-    public Post createPost(CreatePostDTO createPost) {
+    public Post createPost(PostDTO createPost) {
         String query = "insert into posts (title, content, date) values ( ?, ?, NOW()) returning * ";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -79,7 +77,7 @@ public class PostRepository {
     }
 
     // Обновление поста
-    public Post updatePost(UpdatePostDTO updatePost) {
+    public Post updatePost(PostDTO updatePost) {
         String query = "update posts set title = ?, content = ?, date = NOW() where id = ? returning * ";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -102,7 +100,7 @@ public class PostRepository {
     }
 
     // Удаление поста
-    public void deletePosts(DeletePostDTO deletePost) {
+    public void deletePosts(PostDTO deletePost) {
         String query = "delete from posts where id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {

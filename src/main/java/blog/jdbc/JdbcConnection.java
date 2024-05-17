@@ -10,13 +10,13 @@ import java.util.Properties;
 
 public class JdbcConnection {
 
-    Properties properties = new Properties();
+    static Properties properties = new Properties();
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         return JdbcDBConnection();
     }
 
-    private Connection JdbcDBConnection() {
+    private static Connection JdbcDBConnection() {
 
         try (InputStream input = new FileInputStream("src/main/resources/config.properties")) {
             properties.load(input);

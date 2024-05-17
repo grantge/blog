@@ -1,11 +1,17 @@
 package blog;
 
 import blog.controller.PostController;
+import blog.util.DatabaseInitializer;
 import blog.util.PostRoutes;
 import io.javalin.Javalin;
+
+import java.io.IOException;
+
 public class App {
 
     public static void main(String[] args) {
+        DatabaseInitializer.initializeDatabase();
+
         var app = Javalin.create(config -> {
                 config.bundledPlugins.enableDevLogging();
                 })
