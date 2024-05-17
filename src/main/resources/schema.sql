@@ -1,5 +1,7 @@
+DROP TABLE IF EXISTS posts;
+
 CREATE TABLE posts (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id serial INT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     content VARCHAR(255),
     date DATE
